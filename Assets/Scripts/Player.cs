@@ -8,8 +8,16 @@ public class Player : MonoBehaviour
 
     public float speed;
 
+    public GameObject GameWonPanel;
+
+    private bool isWon = false;
+
     void Update()
     {
+        if(isWon)
+        {
+            return;
+        }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
@@ -39,6 +47,8 @@ public class Player : MonoBehaviour
         if (collision.tag == "Door")
         {
             Debug.Log("Level Completed!");
+            GameWonPanel.SetActive(true);
+            isWon = true;
         }
     }
 }
