@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -9,12 +10,13 @@ public class Player : MonoBehaviour
     public float speed;
 
     public GameObject GameWonPanel;
+    public GameObject GameLostPanel;
 
-    private bool isWon = false;
+    private bool isGameOver = false;
 
     void Update()
     {
-        if(isWon)
+        if(isGameOver)
         {
             return;
         }
@@ -46,9 +48,20 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Door")
         {
-            Debug.Log("Level Completed!");
+            Debug.Log("Level Won!");
             GameWonPanel.SetActive(true);
-            isWon = true;
+            isGameOver = true;
         }
+        else if(collision.tag == "Enemy")
+        {
+            Debug.Log("Level Lost!");
+            GameLostPanel.SetActive(true);
+            isGameOver = true;
+        }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }
